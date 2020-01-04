@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{{ url_for("static", filename="css/my_worg.css") }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='js/org.js') }}" rel="stylesheet"/>
+        <meta name="generator" content="Org mode" />
+        <meta name="author" content="Gaeric" />
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

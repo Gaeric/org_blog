@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>索引列表</title>
+    </head>
+    <body>
+        <div>
+            博客列表
+            {% for html in g.HTML_LIST %}
+                <li><a href="{{ url_for('show_blog', blog_file=html) }}">{{html|html_title}}</a></li>
+            {% endfor %}
+        </div> 
+    </body>
+</html>

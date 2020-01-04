@@ -1,0 +1,4 @@
+__pycache__
+static/static_html/*.html
+static/image/
+.dir-locals.el
