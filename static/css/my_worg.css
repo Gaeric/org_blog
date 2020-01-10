@@ -234,9 +234,9 @@ content: "*** "
 	font-family: Droid Sans Mono, Monaco, Consolas, "Lucida Console", monospace;
 	color: black;
 	font-size: 90%;
-	background-color: #ffffff;
+	background-color: #EEEEEE;
 	padding: 1.2em;
-	border: 2px solid #dddddd;
+	border: 2px solid #DDDDDD;
 	overflow: auto;
         white-space: pre-wrap;
         word-wrap: break-word;
