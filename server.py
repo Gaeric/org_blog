@@ -31,7 +31,6 @@ def get_static_html_list():
             logging.info(f"don't have .gitkeep")
         finally:
             g.HTML_LIST = static_html_list
-            print(g.HTML_LIST)
     else:
         g.HTML_LIST = ""
 
@@ -53,7 +52,6 @@ def index():
 def show_blog(blog_file):
     """函数以启动文件为根目录，blog_file为其在static/static_html下的相对位置"""
     file_path = os.path.join(os.getcwd(), "static", config.BLOG_DIR, blog_file)
-    print(file_path)
     org_blog = OrgBlog(file_path)
 
     title = org_blog.org_title
