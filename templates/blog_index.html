@@ -1,0 +1,27 @@
+{% extends "blog_base.html" %}
+{% block title %}博客索引{% endblock %}
+{% block content %}
+    <div class="post-group">
+        <ul class="post-group-head">博客列表</ul>
+        <ul class="post-list-group">
+            {%- for html in g.HTML_LIST %}
+                <li><a href="{{ url_for('show_blog', blog_file=html) }}">{{html|html_title}}</a></li>
+            {% endfor %}
+                <!-- <div class="author-avatar-group">
+                     <img alt="" src="/static/common/images/logo.jpg"/>
+                     </div>
+                     <div class="post-info-group">
+                     <p class="post-title">
+                     <a href="/p/216">要求 </a>
+                     
+                     </p>
+                     <p class="post-info">
+                     <span>作者: </span>
+                     <span>发表时间: 2020-01-08 23:56:14</span>
+                     <span>评论: 0</span>
+                     <span>阅读: 0</span>
+                     </p>
+                     </div> -->
+        </ul> <!-- 帖子列表 -->
+    </div>
+{% endblock %}

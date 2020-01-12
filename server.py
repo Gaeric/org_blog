@@ -31,6 +31,7 @@ def get_static_html_list():
             logging.info(f"don't have .gitkeep")
         finally:
             g.HTML_LIST = static_html_list
+            print(g.HTML_LIST)
     else:
         g.HTML_LIST = ""
 
@@ -45,7 +46,7 @@ def get_static_title(ox_html):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('blog_index.html')
 
 
 @app.route('/blog/<path:blog_file>')

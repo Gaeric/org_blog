@@ -2,13 +2,65 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
-        <title>{% block title %}{% endblock %}</title>
-        <link href="{{ url_for("static", filename="css/my_worg.css") }}" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='js/org.js') }}" rel="stylesheet"/>
+        <!-- Style -->
+        <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+        <link href="{{ url_for("static", filename="css/uikit.min.css") }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css/uikit.almost-flat.min.css') }}" rel="stylesheet"/>
+        <script src='{{ url_for("static", filename="js/uikit.min.js") }}'></script>
+        <!-- My Info -->
         <meta name="generator" content="Org mode" />
         <meta name="author" content="Gaeric" />
+        <meta name="keywords" content="Emacs, Org-mode, Flask, Jinja, Python"/>
+        <!-- Blog Info -->
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{{ url_for('static', filename='images/tab_icon.png') }}" rel="shortcut icon"/>
+        <link href="{{ url_for("static", filename="css/my_worg.css") }}" rel="stylesheet"/>
+        <link href="{{ url_for("static", filename="css/org_blog.css") }}" rel="stylesheet"/>
+        <script src='{{ url_for('static', filename='js/org.js') }}'></script>
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <nav class="uk-navbar uk-native-side">
+            <ul class="uk-navbar-nav">
+                <li><a href="">Gaeric静态博客</a></li>
+                <li><a href="">首页</a></li>
+                <!-- <li class="uk-active"><a href="/">首页</a></li> -->
+                <!-- <li><a href="">...</a></li>
+                     <li class="uk-parent"><a href="">...</a></li> -->
+            </ul>
+        </nav>
+
+        <div class="org-blog-content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div id="footer">
+            <div class="x-footer uk-container x-container">
+                <hr>
+                <div class="uk-grid">
+                    <div class="x-footer-copyright uk-width-small-1-2 uk-width-medium-1-3">
+                        <p>
+                            <a href="/" title="version=1.0-b1b83dc-2019-05-25T01:51:58Z">Copyright</a>&copy;2020 Gaeric
+                            <br>
+                            Powered by <a href="https://github.com/Gaeric/" target="_blank">Emacs-org</a>
+                        </p>
+                    </div>
+                    <div class="uk-width-small-1-2 uk-width-medium-1-3 x-hidden-tiny">
+                        <center>
+                        <a href="https://github.com/Gaeric" target="_blank" class="uk-icon-button uk-icon-github"></a>
+                        <a href="#" target="_blank" class="uk-icon-button uk-icon-twitter"></a>
+                        <a href="#" target="_blank" class="uk-icon-button uk-icon-weibo"></a>
+                        <br>
+                        <a href="http://www.beian.miit.gov.cn" target="_blank" rel="nofollow" class="slide slide-ct" hotrep="hp.footer.bottom.miitbeian">粤ICP备19108935号</a></center>
+                    </div>
+                    <div class="uk-width-medium-1-3 uk-hidden-small foot-test">
+                        <p>
+                            <a href="#" target="_blank">Feedback</a>
+                            <br>
+                            <a href="#" target="_blank">License</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
