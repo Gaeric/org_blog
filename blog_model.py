@@ -14,6 +14,7 @@ body_re = re.compile(r'<body>([\s\S]*)<\/body>')
 
 class OrgBlog():
     """解析传入的ox-html文件，匹配其title和body
+    文件格式必须为html，由调用者保证
     如果title不存在，则返回""
     如果body不存在，则返回ox-html文件的所有内容
 """

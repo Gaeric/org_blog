@@ -21,18 +21,11 @@ app.config.from_object(config)
 # 放到单独的hooks文件中无效
 @app.before_request
 def get_static_html_list():
+    g.HTML_LIST = []
     static_html_dir = os.path.join(os.getcwd(), 'static', config.BLOG_DIR)
     if os.path.isdir(static_html_dir):
-        static_html_list = os.listdir(static_html_dir)
-        try:
-            # 删除.gitkeep
-            static_html_list.remove(".gitkeep")
-        except ValueError:
-            logging.info(f"don't have .gitkeep")
-        finally:
-            g.HTML_LIST = static_html_list
-    else:
-        g.HTML_LIST = ""
+        g.HTML_LIST = [filename for filename in os.listdir(static_html_dir)\
+                       if filename.endswith("html")]
 
 
 @app.template_filter('html_title')
