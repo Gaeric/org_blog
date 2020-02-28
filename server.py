@@ -26,6 +26,7 @@ def get_static_html_list():
     if os.path.isdir(static_html_dir):
         g.HTML_LIST = [filename for filename in os.listdir(static_html_dir)\
                        if filename.endswith("html")]
+        g.HTML_LIST.sort()
 
 
 @app.template_filter('html_title')
