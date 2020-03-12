@@ -11,7 +11,6 @@ from flask import g
 from blog_model import OrgBlog
 import os
 import config
-import logging
 
 
 app = Flask(__name__)
@@ -24,7 +23,7 @@ def get_static_html_list():
     g.HTML_LIST = []
     static_html_dir = os.path.join(os.getcwd(), 'static', config.BLOG_DIR)
     if os.path.isdir(static_html_dir):
-        g.HTML_LIST = [filename for filename in os.listdir(static_html_dir)\
+        g.HTML_LIST = [filename for filename in os.listdir(static_html_dir)
                        if filename.endswith("html")]
         g.HTML_LIST.sort()
 
