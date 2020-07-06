@@ -4,9 +4,16 @@
 #+HTML_HEAD: <link href="./worg.css" rel="stylesheet" type="text/css">
 #+HTML_HEAD: <link href="/static/css/worg.css" rel="stylesheet" type="text/css">
 #+OPTIONS: ^:{}
-将org文件转化为博客是我期待以久的事情，之前看过使用Hexo此类的博客系统，但是一直不想搭，最近学完了整套Flask，觉得用Flask框架配合org导出(org-export)的html文件搭一个静态博客应当是一件非常容易的事情，于是这个博客系统的方案诞生了。
+* 修改记录
+  - v0.1 :: 初稿完成，简述50行代码完成基于org-mode和flask的纯文本博客系统
+    [2020-03-21 Sat]
+  - v0.2 :: 增加提交结点说明，目标变更为搭建完整博客系统
+    [2020-07-06 Mon]
+* 简介
+  将org文件转化为博客是我期待以久的事情，之前看过使用Hexo此类的博客系统，但是一直不想搭，最近学完了整套Flask，觉得用Flask框架配合org导出(org-export)的html文件搭一个静态博客应当是一件非常容易的事情，于是这个博客系统的方案诞生了。
 
-博客地址为：http://lantianzero.club
+  博客地址为：http://lantianzero.club
+
 * 博客系统方案
   这个方案是因Emacs的org-mode而生的，org-mode和Emacs的配置是必须的；另外，它还依赖于nginx和Python及其安装包[包括Flask、uwsgi及supervisor等]
 
@@ -100,11 +107,11 @@
       #+end_src
    4. Jinja2模板内容
       1. 抽取title内容生成索引
-        #+begin_src html
+         #+begin_src html
           {%- for html in g.HTML_LIST %}
           <li><a href="{{ url_for('show_blog', blog_file=html) }}">{{html|html_title}}</a></li>
           {% endfor %}
-        #+end_src
+         #+end_src
       2. 抽取文件内容填充模板
          #+begin_src shell
            {% block title %}{{ title }}{% endblock %}
@@ -128,3 +135,5 @@
   由于目前环境中暂未涉及图片及其它二进制文件，所以博客内容中没有考虑二进制文件
 
   源码尚未整理完成，整理完成后上传个人github
+* 注记
+  50行代码完成Blog系统：commit节点：df7039d6562dc00d8a31267372c36ee401b2102
