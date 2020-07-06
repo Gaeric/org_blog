@@ -4,3 +4,4 @@ static/image/
 .dir-locals.el
 supervisord.log
 supervisord.pid
+local-uwsgi.ini
