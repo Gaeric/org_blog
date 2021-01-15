@@ -46,7 +46,7 @@ class OrgBlog():
         bs = BeautifulSoup(self._html_context, "lxml")
         attrs = {'id': self._summary_id}
         su = bs.find("div", attrs=attrs).find('p')
-        return su.string or ""
+        return su.text or ""
 
     @property
     def org_createtime(self):
