@@ -137,3 +137,5 @@
   源码尚未整理完成，整理完成后上传个人github
 * 注记
   50行代码完成Blog系统：commit节点：df7039d6562dc00d8a31267372c36ee401b2102
+
+  在debian系统上，要注意同时安装~uwsgi-plugin-python3~这个package，否则不支持python虚拟环境，无法访问
