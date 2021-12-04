@@ -139,8 +139,12 @@
 
   在debian系统上，要注意同时安装~uwsgi-plugin-python3~这个package，否则不支持python虚拟环境，无法访问
 * TodoList
-** TODO 优化blog系统，减少每次访问的运算量
+** DONE 优化blog系统，减少每次访问的运算量
    DEADLINE: <2021-12-15 Wed>
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2021-12-04 Sat 19:10] \\
+     finish
+   :END:
    当前blog在每次访问时，都需要遍历所有文件，然后得出其中的标题和摘要，性能低下；
 
    考虑使用其它监控方式，在文件更新或其它有必要的时间，对更新所有title的内容
