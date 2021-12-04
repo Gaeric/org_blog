@@ -14,50 +14,64 @@ import os
 import config
 
 
+ORG_BLOGS = {}
 app = Flask(__name__)
 app.config.from_object(config)
 
 
-# 放到单独的hooks文件中无效
+def get_org_blogs(html_list):
+    for filename in g.HTML_LIST:
+        file_path = os.path.join(os.getcwd(), "static", config.BLOG_DIR,
+                                 filename)
+        org_blog = ORG_BLOGS.get(file_path)
+        if org_blog is None:
+            org_blog = OrgBlog(file_path)
+        else:
+            org_blog.update(file_path)
+        ORG_BLOGS[file_path] = org_blog
+    return ORG_BLOGS
+
+
+# Todo: 放到单独的hooks文件中无效
 @app.before_request
-def get_static_html_list():
-    g.HTML_LIST = []
+def refresh_posts():
     static_html_dir = os.path.join(os.getcwd(), 'static', config.BLOG_DIR)
     if os.path.isdir(static_html_dir):
         g.HTML_LIST = [filename for filename in os.listdir(static_html_dir)
                        if filename.endswith("html")]
         g.HTML_LIST.sort()
+        g.ORG_BLOGS = get_org_blogs(g.HTML_LIST)
 
 
 @app.template_filter('html_title')
 def get_static_title(ox_html):
     """函数以启动文件为根目录，ox_html为其在static/static_html/下的相对位置"""
-    file_path = os.path.join(os.getcwd(), "static", config.BLOG_DIR, ox_html)
-    title = OrgBlog(file_path).org_title
+    post = get_post(g, ox_html)
+    title = post.org_title
     return title
 
 
 @app.template_filter('html_summary')
 def get_static_summary(ox_html):
     """函数以启动文件为根目录，ox_html为其在static/static_html/下的相对位置"""
-    file_path = os.path.join(os.getcwd(), 'static', config.BLOG_DIR, ox_html)
-    summary = OrgBlog(file_path).org_summary
+    post = get_post(g, ox_html)
+    summary = post.org_summary
     return summary
 
 
 @app.template_filter('html_content')
 def get_static_content(ox_html):
     """函数以启动文件为根目录，ox_html为其在static/static_html/下的相对位置"""
-    file_path = os.path.join(os.getcwd(), "static", config.BLOG_DIR, ox_html)
-    content = OrgBlog(file_path).org_content
+    post = get_post(g, ox_html)
+    content = post.org_content
     return content
 
 
 # datetime.strptime("2020-07-05 Sun 20:34", "%Y-%m-%d %a %M:%S")
 @app.template_filter('html_time')
 def html_time(ox_html):
-    file_path = os.path.join(os.getcwd(), 'static', config.BLOG_DIR, ox_html)
-    createtime = OrgBlog(file_path).org_createtime
+    post = get_post(g, ox_html)
+    createtime = post.org_createtime
     return handle_time(createtime)
 
 
@@ -96,14 +110,18 @@ def index():
     return render_template('blog_index.html')
 
 
-@app.route('/blog/<path:blog_file>')
-def show_blog(blog_file):
-    """函数以启动文件为根目录，blog_file为其在static/static_html下的相对位置"""
-    file_path = os.path.join(os.getcwd(), "static", config.BLOG_DIR, blog_file)
-    org_blog = OrgBlog(file_path)
+def get_post(g, filename):
+    file_path = os.path.join(os.getcwd(), "static", config.BLOG_DIR, filename)
+    post = g.ORG_BLOGS.get(file_path).post
+    return post
 
-    title = org_blog.org_title
-    content = org_blog.org_content
+
+@app.route('/blog/<path:ox_html>')
+def show_blog(ox_html):
+    """函数以启动文件为根目录，blog_file为其在static/static_html下的相对位置"""
+    post = get_post(g, ox_html)
+    title = post.org_title
+    content = post.org_content
     return render_template("blog_detail.html", title=title, content=content)
 
 

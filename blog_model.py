@@ -6,6 +6,7 @@
 # Author:   Gaeric
 
 import re
+import os
 from bs4 import BeautifulSoup
 from datetime import datetime
 
@@ -15,7 +16,7 @@ body_re = re.compile(r'<body>([\s\S]*)<\/body>')
 summary_re = re.compile(r'<li><a href="#(.*)">(.*?)简介<\/a><\/li>')
 
 
-class OrgBlog():
+class Post():
     """解析传入的ox-html文件，匹配其title和body
     文件格式必须为html，由调用者保证
     如果title不存在，则返回""
@@ -50,6 +51,7 @@ class OrgBlog():
 
     @property
     def org_createtime(self):
+        '''orgfile ctime is the modify time for the post'''
         bs = BeautifulSoup(self._html_context, "lxml")
         attrs = {'class': "date"}
         createtime_s = bs.find("p", attrs=attrs)
@@ -58,3 +60,13 @@ class OrgBlog():
         createtime = datetime.strptime(createtime_s.string,
                                        "Created: %Y-%m-%d %a %M:%S")
         return createtime
+
+
+class OrgBlog():
+    def __init__(self, file_path):
+        self.post = Post(file_path)
+        self.mtime = os.path.getmtime(file_path)
+
+    def update(self, file_path):
+        if self.mtime != os.path.getmtime(file_path):
+            self.post = Post(file_path)
