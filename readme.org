@@ -138,6 +138,9 @@
   50行代码完成Blog系统：commit节点：df7039d6562dc00d8a31267372c36ee401b2102
 
   在debian系统上，要注意同时安装~uwsgi-plugin-python3~这个package，否则不支持python虚拟环境，无法访问
+* Note
+** g对象的简要说明
+   g对象是基于当前request的，只是用来串联当前请求的上下文，它并不是一个传统意义上的全局变量
 * TodoList
 ** DONE 优化blog系统，减少每次访问的运算量
    DEADLINE: <2021-12-15 Wed>
@@ -148,11 +151,14 @@
    当前blog在每次访问时，都需要遍历所有文件，然后得出其中的标题和摘要，性能低下；
 
    考虑使用其它监控方式，在文件更新或其它有必要的时间，对更新所有title的内容
+*** solution 
+    Set a global value ORG_BLOGS, it's a dynamic dict, like {"file_name": OrgBlog(file_name),...}
+
+    init the post to OrgBlog, or judge the properity mtime for every instance of OrgBlog then update.
+
 ** TODO 支持图片
    DEADLINE: <2021-12-30 Thu>
    考虑使用七牛云的链接，以本地静态存储做为可选方式，同步优化org-publish的发布系统
-** TODO 增加对g对象的说明
-   g对象是基于当前request的，只是用来串联当前请求的上下文，它并不是一个传统意义上的全局变量
 ** TODO 更新readme
    包括本readme，以及blog中对博客系统的说明
    
